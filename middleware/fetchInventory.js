@@ -160,14 +160,12 @@ const prepareInventory = async (url, queryId) => {
     return await fetch(url).then(
       (res) =>
         new Promise((resolve, reject) => {
-          const dest = fs.createWriteStream(
-            `${__dirname}../data/${queryId}.json`
-          )
+          const dest = fs.createWriteStream(`${__dirname}/data/${queryId}.json`)
           res.body.pipe(dest)
           dest.on('error', (err) => console.log(err))
           dest.on('close', async () => {
             const fileStream = fs.createReadStream(
-              `${__dirname}../data/${queryId}.json`
+              `${__dirname}/data/${queryId}.json`
             )
             const rl = readline.createInterface({
               input: fileStream,
@@ -194,7 +192,7 @@ const prepareInventory = async (url, queryId) => {
               }
             }
 
-            fs.unlink(`${__dirname}../data/${queryId}.json`, (err) => {
+            fs.unlink(`${__dirname}/data/${queryId}.json`, (err) => {
               if (err) {
                 console.error(err)
               }
