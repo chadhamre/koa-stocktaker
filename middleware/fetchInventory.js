@@ -63,7 +63,7 @@ const query = `{
 
 const store = {}
 
-module.exports = async function(ctx) {
+module.exports = async function (ctx) {
   try {
     // fetch account from database
     const account = await Account.findOne({
@@ -114,7 +114,7 @@ const requestBulkJob = async (shop, location, token, queryId) => {
         },
         body: JSON.stringify({ query: mutation }),
       }
-    ).then(response => response.json())
+    ).then((response) => response.json())
 
     const bulkOperation = response.data.bulkOperationRunQuery.bulkOperation
     const operationId = bulkOperation.id
@@ -139,8 +139,8 @@ const pollForPreviousQuery = async (shop, token) => {
       },
       body: JSON.stringify({ query }),
     })
-      .then(response => response.json())
-      .then(response => {
+      .then((response) => response.json())
+      .then((response) => {
         if (response.data.currentBulkOperation.url) {
           return {
             status: response.data.currentBulkOperation.status,
@@ -158,10 +158,11 @@ const pollForPreviousQuery = async (shop, token) => {
 const prepareInventory = async (url, queryId) => {
   try {
     return await fetch(url).then(
-      res =>
+      (res) =>
         new Promise((resolve, reject) => {
           const dest = fs.createWriteStream(`./data/${queryId}.json`)
           res.body.pipe(dest)
+          dest.on('error', (err) => console.log(err))
           dest.on('close', async () => {
             const fileStream = fs.createReadStream(`./data/${queryId}.json`)
             const rl = readline.createInterface({
@@ -189,7 +190,7 @@ const prepareInventory = async (url, queryId) => {
               }
             }
 
-            fs.unlink(`./data/${queryId}.json`, err => {
+            fs.unlink(`./data/${queryId}.json`, (err) => {
               if (err) {
                 console.error(err)
               }
@@ -204,7 +205,7 @@ const prepareInventory = async (url, queryId) => {
   }
 }
 
-const denyRequest = ctx => {
+const denyRequest = (ctx) => {
   ctx.status = ctx.status = 401
   ctx.body = {
     error: {
