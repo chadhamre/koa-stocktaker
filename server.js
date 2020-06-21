@@ -1,10 +1,11 @@
 require('isomorphic-fetch')
 
 // import npm dependencies
-const Koa = require('koa')
-const Router = require('koa-router')
-const logger = require('koa-logger')
 const bodyParser = require('koa-bodyparser')
+const dotenv = require('dotenv')
+const Koa = require('koa')
+const logger = require('koa-logger')
+const Router = require('koa-router')
 
 dotenv.config()
 const port = parseInt(process.env.PORT, 10) || 3001
