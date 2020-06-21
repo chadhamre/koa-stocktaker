@@ -6,6 +6,9 @@ const Router = require('koa-router')
 const logger = require('koa-logger')
 const bodyParser = require('koa-bodyparser')
 
+dotenv.config()
+const port = parseInt(process.env.PORT, 10) || 3001
+
 // initialize app
 const app = new Koa()
 
@@ -38,7 +41,9 @@ app.use(apiRouter.routes())
 app.use(apiRouter.allowedMethods())
 
 // start server
-const server = app.listen(3001)
+const server = app.listen(port, () => {
+  console.log(`> Ready on http://localhost:${port}`)
+})
 
 // export server
 module.exports = server
