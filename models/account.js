@@ -13,7 +13,7 @@ module.exports = (sequelize, type) => {
     },
     shopifyTokenExpiresAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     shopifyEmail: {
       type: DataTypes.STRING,
