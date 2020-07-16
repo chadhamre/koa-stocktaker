@@ -117,6 +117,9 @@ const requestBulkJob = async (shop, location, token, queryId) => {
       }
     ).then((response) => response.json())
 
+    console.log('CREATE --------------------------')
+    console.log(JSON.stringify(response, null, 3))
+
     // check for errors
     const errorText =
       'A bulk operation for this app and shop is already in progress: gid://shopify/BulkOperation/'
@@ -128,8 +131,6 @@ const requestBulkJob = async (shop, location, token, queryId) => {
         errorText
       )
     ) {
-      console.log('------------- ERROR')
-      console.log(JSON.stringify(response, null, 3))
       const processingId = response.data.bulkOperationRunQuery.userErrors[0].message
         .split(errorText)[1]
         .slice(0, -1)
@@ -166,7 +167,7 @@ const pollForPreviousQuery = async (shop, token) => {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log('------------- POLL')
+        console.log('POLL --------------------------')')
         console.log(JSON.stringify(response, null, 3))
         if (response.data.currentBulkOperation.url) {
           return {
