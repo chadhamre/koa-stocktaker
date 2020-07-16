@@ -138,7 +138,7 @@ const requestBulkJob = async (shop, location, token, queryId) => {
       )
       console.log('SPLIT', processingId)
       store[queryId] = {
-        operationId: processingId[0],
+        operationId: processingId[1].slice(0, -1),
         registeredAt: Date.now(),
       }
       return { status: 'PROCESSING' }
