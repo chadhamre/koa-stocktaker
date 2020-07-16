@@ -86,6 +86,7 @@ module.exports = async function (ctx) {
       ctx.body = jobResponse
     } else {
       const pollResponse = await pollForPreviousQuery(shop, token)
+      console.log('POLL', pollResponse)
       if (pollResponse.status === 'COMPLETED' && pollResponse.url) {
         delete store[queryId]
         ctx.body = await prepareInventory(pollResponse.url, queryId)
