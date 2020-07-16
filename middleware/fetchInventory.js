@@ -78,8 +78,8 @@ module.exports = async function (ctx) {
     const queryId = `${shop}-${location}`
     if (
       !store[queryId] ||
-      // inventory must have been requested in the past 5 minutes
-      Date.now() - store[queryId].registeredAt > 5 * 60 * 1000
+      // inventory must have been requested in the past 10 minutes
+      Date.now() - store[queryId].registeredAt > 10 * 60 * 1000
     ) {
       const jobResponse = await requestBulkJob(shop, location, token, queryId)
       ctx.status = 200
