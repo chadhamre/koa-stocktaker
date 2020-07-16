@@ -117,23 +117,19 @@ const requestBulkJob = async (shop, location, token, queryId) => {
     ).then((response) => response.json())
 
     console.log('COMPLETED', JSON.stringify(response))
-    console.log(
-      'ERRORS',
-      response.data.bulkOperationRunQuery.useErrors[0].message
-    )
 
     // check for errors
     const errorText =
       'A bulk operation for this app and shop is already in progress: gid://shopify/BulkOperation/'
     if (
-      response.data.bulkOperationRunQuery.useErrors &&
-      response.data.bulkOperationRunQuery.useErrors[0] &&
-      response.data.bulkOperationRunQuery.useErrors[0].message &&
-      response.data.bulkOperationRunQuery.useErrors[0].message.includes(
+      response.data.bulkOperationRunQuery.userErrors &&
+      response.data.bulkOperationRunQuery.userErrors[0] &&
+      response.data.bulkOperationRunQuery.userErrors[0].message &&
+      response.data.bulkOperationRunQuery.userErrors[0].message.includes(
         errorText
       )
     ) {
-      const processingId = response.data.bulkOperationRunQuery.useErrors[0].message.split(
+      const processingId = response.data.bulkOperationRunQuery.userErrors[0].message.split(
         'errorText'
       )[0]
       console.log('SPLIT', processingId)
