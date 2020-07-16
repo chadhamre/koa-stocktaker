@@ -86,7 +86,7 @@ module.exports = async function (ctx) {
       ctx.body = jobResponse
     } else {
       const pollResponse = await pollForPreviousQuery(shop, token)
-      console.log('POLL', pollResponse)
+
       if (pollResponse.status === 'COMPLETED' && pollResponse.url) {
         delete store[queryId]
         ctx.body = await prepareInventory(pollResponse.url, queryId)
@@ -128,7 +128,8 @@ const requestBulkJob = async (shop, location, token, queryId) => {
         errorText
       )
     ) {
-      console.log('ERROR', JSON.stringify(response))
+      console.log('------------- ERROR')
+      console.log(JSON.stringify(response, null, 3))
       const processingId = response.data.bulkOperationRunQuery.userErrors[0].message
         .split(errorText)[1]
         .slice(0, -1)
@@ -165,7 +166,8 @@ const pollForPreviousQuery = async (shop, token) => {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log('POLLING', response)
+        console.log('------------- POLL')
+        console.log(JSON.stringify(response, null, 3))
         if (response.data.currentBulkOperation.url) {
           return {
             status: response.data.currentBulkOperation.status,
