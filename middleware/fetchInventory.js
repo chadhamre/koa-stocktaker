@@ -117,6 +117,10 @@ const requestBulkJob = async (shop, location, token, queryId) => {
     ).then((response) => response.json())
 
     console.log('COMPLETED', JSON.stringify(response))
+    console.log(
+      'ERRORS',
+      response.data.bulkOperationRunQuery.useErrors[0].message
+    )
 
     // check for errors
     const errorText =
