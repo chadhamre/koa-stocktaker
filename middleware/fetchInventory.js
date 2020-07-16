@@ -116,6 +116,7 @@ const requestBulkJob = async (shop, location, token, queryId) => {
       }
     ).then((response) => response.json())
 
+    console.log('RESPONSE', JSON.stringify(response))
     const bulkOperation = response.data.bulkOperationRunQuery.bulkOperation
     const operationId = bulkOperation.id
     const operationStatus = bulkOperation.status
