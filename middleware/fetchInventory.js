@@ -129,11 +129,18 @@ const requestBulkJob = async (shop, location, token, queryId) => {
         errorText
       )
     ) {
+      console.log(
+        'HERE',
+        response.data.bulkOperationRunQuery.userErrors[0].message
+      )
       const processingId = response.data.bulkOperationRunQuery.userErrors[0].message.split(
         errorText
-      )[0]
+      )
       console.log('SPLIT', processingId)
-      store[queryId] = { operationId, registeredAt: Date.now() }
+      store[queryId] = {
+        operationId: processingId[0],
+        registeredAt: Date.now(),
+      }
       return { status: 'PROCESSING' }
     }
 
