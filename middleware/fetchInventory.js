@@ -141,7 +141,7 @@ const requestBulkJob = async (shop, location, token, queryId) => {
         operationId: processingId[1].slice(0, -1),
         registeredAt: Date.now(),
       }
-      return { status: 'PROCESSING' }
+      return { status: 'RUNNING' }
     }
 
     const bulkOperation = response.data.bulkOperationRunQuery.bulkOperation
