@@ -6,7 +6,7 @@ const { Sequelize } = require('sequelize')
 
 dotenv.config()
 
-const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL, {
+const sequelize = new Sequelize(process.env.JAWSDB_URL, {
   logging: false,
 })
 
