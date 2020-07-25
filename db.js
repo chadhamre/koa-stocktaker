@@ -1,7 +1,8 @@
 const dotenv = require('dotenv')
-const { Sequelize, DataTypes } = require('sequelize')
 const AccountModel = require('./models/account')
 const UpdatesModel = require('./models/updates')
+
+const { Sequelize } = require('sequelize')
 
 dotenv.config()
 
