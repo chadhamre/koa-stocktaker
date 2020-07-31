@@ -1,6 +1,5 @@
 const fs = require('fs')
 const readline = require('readline')
-const hash = require('object-hash')
 
 const { Account, Updates } = require('../db.js')
 

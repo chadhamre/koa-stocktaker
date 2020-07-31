@@ -14,7 +14,7 @@ module.exports = async function(ctx) {
     const location = ctx.request.body.location
 
     if (!ctx.request.body.hash) {
-      const batchId = hash(ctx.request.body)
+      const batchId = hash(ctx.request.body + Date.now())
       const existing = await Updates.count({
         where: {
           batchId,
