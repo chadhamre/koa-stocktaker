@@ -49,11 +49,13 @@ module.exports = async function(ctx) {
 
 const updateShopify = async updates => {
   const update = updates.pop()
+  console.log('UPDATE', JSON.stringify(update))
   let url = `https://${update.shopifyShop}/admin/api/2020-04/inventory_levels/`
   const body = {
     location_id: update.locationId,
     inventory_item_id: update.inventoryItemId,
   }
+  
   if (update.updateType === 'OVERWRITE') {
     url += `set.json`
     body.available = update.quantity
@@ -62,6 +64,9 @@ const updateShopify = async updates => {
     url += `adjust.json`
     body.available_adjustment = update.quantity
   }
+  console.log('BODY', body)
+
+  console.log('URL', url)
   const stringifiedBody = JSON.stringify(body)
   fetch(url, {
     method: 'POST',
