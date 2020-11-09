@@ -71,7 +71,17 @@ const updateShopify = async updates => {
     },
     body: stringifiedBody,
   })
-    .then(response => response.json())
+    .then(response => {
+      try { 
+        const parsedResponse = response.json()
+        return parsedResponse
+      } catch(err) {
+        console.log('RAW', response)
+        console.log('ERR', err)
+        console.log('URL', url)
+        console.log('BODY', stringifiedBody)
+        console.log('TOKEN', update.shopifyToken)
+      }})
     .then(async response => {
       if (response.inventory_level) {
         console.log('UPDATED', update.id)
