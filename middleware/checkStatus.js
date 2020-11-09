@@ -77,6 +77,14 @@ const updateShopify = async updates => {
     body: stringifiedBody,
   })
     .then(response => {
+      if (response.status === 422) {
+        console.log('STATUS', response.status)
+        console.log('RAW', response)
+        console.log('ERR', err)
+        console.log('URL', url)
+        console.log('BODY', stringifiedBody)
+        console.log('TOKEN', update.shopifyToken)
+      }
       try { 
         const parsedResponse = response.json()
         return parsedResponse
