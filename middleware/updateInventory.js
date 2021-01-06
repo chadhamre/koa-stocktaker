@@ -12,6 +12,9 @@ module.exports = async function (ctx) {
     const token = account.shopifyToken
 
     const location = ctx.request.body.location
+    const sessionId = ctx.request.body.sessionId
+
+    console.log('UPDATE INVENTORY', shop, sessionId)
 
     if (!ctx.request.body.hash) {
       const batchId = hash(ctx.request.body)
@@ -22,7 +25,7 @@ module.exports = async function (ctx) {
         },
       })
       if (existing > 0) {
-        console.log('EXISTING PENDING', shop, batchId)
+        console.log('EXISTING PENDING', shop, batchId, sessionId)
         ctx.state = 200
         ctx.body = {
           success: true,
