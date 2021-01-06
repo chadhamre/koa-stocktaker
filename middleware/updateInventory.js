@@ -1,7 +1,7 @@
 const hash = require('object-hash')
 const { Account, Updates } = require('../db.js')
 
-module.exports = async function(ctx) {
+module.exports = async function (ctx) {
   try {
     // fetch account from database
     const account = await Account.findOne({
@@ -14,13 +14,15 @@ module.exports = async function(ctx) {
     const location = ctx.request.body.location
 
     if (!ctx.request.body.hash) {
-      const batchId = hash(ctx.request.body + Date.now())
+      const batchId = hash(ctx.request.body)
       const existing = await Updates.count({
         where: {
           batchId,
+          status: 'PENDING',
         },
       })
       if (existing > 0) {
+        console.log('EXISTING PENDING', shop, batchId)
         ctx.state = 200
         ctx.body = {
           success: true,
@@ -28,7 +30,7 @@ module.exports = async function(ctx) {
         }
       } else {
         if (ctx.request.body.deltas) {
-          const deltaInserts = ctx.request.body.deltas.map(item => {
+          const deltaInserts = ctx.request.body.deltas.map((item) => {
             return {
               batchId,
               shopifyShop: shop,
@@ -44,7 +46,7 @@ module.exports = async function(ctx) {
           await Updates.bulkCreate(deltaInserts)
         }
         if (ctx.request.body.overwrites) {
-          const overwriteInserts = ctx.request.body.overwrites.map(item => {
+          const overwriteInserts = ctx.request.body.overwrites.map((item) => {
             return {
               batchId,
               shopifyShop: shop,
@@ -80,7 +82,7 @@ module.exports = async function(ctx) {
   }
 }
 
-const denyRequest = ctx => {
+const denyRequest = (ctx) => {
   ctx.status = ctx.status = 401
   ctx.body = {
     error: {
