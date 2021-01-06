@@ -167,14 +167,14 @@ const pollForPreviousQuery = async (shop, token) => {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log('POLL --------------------------')
-        console.log(JSON.stringify(response, null, 3))
         if (response.data.currentBulkOperation.url) {
+          console.log('POLL DONE', shop)
           return {
             status: response.data.currentBulkOperation.status,
             url: response.data.currentBulkOperation.url,
           }
         } else {
+          console.log('POLL PENDING', shop)
           return { status: response.data.currentBulkOperation.status }
         }
       })
