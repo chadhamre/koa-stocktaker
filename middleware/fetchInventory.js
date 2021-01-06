@@ -117,8 +117,7 @@ const requestBulkJob = async (shop, location, token, queryId) => {
       }
     ).then((response) => response.json())
 
-    console.log('CREATE --------------------------')
-    console.log(JSON.stringify(response, null, 3))
+    console.log('POLL ---- CREATED', shop)
 
     // check for errors
     const errorText =
@@ -168,13 +167,13 @@ const pollForPreviousQuery = async (shop, token) => {
       .then((response) => response.json())
       .then((response) => {
         if (response.data.currentBulkOperation.url) {
-          console.log('POLL DONE', shop)
+          console.log('POLL ---- DONE', shop)
           return {
             status: response.data.currentBulkOperation.status,
             url: response.data.currentBulkOperation.url,
           }
         } else {
-          console.log('POLL PENDING', shop)
+          console.log('POLL ---- PENDING', shop)
           return { status: response.data.currentBulkOperation.status }
         }
       })
