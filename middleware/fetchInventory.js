@@ -140,7 +140,7 @@ const requestBulkJob = async (shop, location, token, queryId) => {
       }
       return { status: 'RUNNING' }
     } else {
-      console.log('DATA', response.data)
+      console.log('DATA', JSON.stringify(response.data))
       const bulkOperation = response.data.bulkOperationRunQuery.bulkOperation
       const operationId = bulkOperation.id
       const operationStatus = bulkOperation.status
