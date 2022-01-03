@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken')
 const { Account } = require('../db.js')
 
-module.exports = async function(ctx) {
+module.exports = async function (ctx) {
   if (ctx.request.body.secret) {
     try {
       const account = await Account.findOne({
@@ -42,7 +42,7 @@ const denyRequest = ctx => {
 
 const updateShopInfo = async (shop, token) => {
   try {
-    const url = `https://${shop}/admin/api/2020-04/shop.json`
+    const url = `https://${shop}/admin/api/2021-10/shop.json`
     return await fetch(url, {
       method: 'GET',
       headers: {
